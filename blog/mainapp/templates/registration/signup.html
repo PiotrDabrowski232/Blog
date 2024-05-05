@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Załóż konto{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card border-primary">
+        <div class="card-header bg-primary text-white">Załóż konto</div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="username">Nazwa użytkownika:</label>
+              {{ form.username }}
+              {% if form.username.errors %}
+              <div class="invalid-feedback">
+                {{ form.username.errors|join:", " }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="form-group">
+              <label for="email" class="mt-2">Adres email:</label>
+              {{ form.email }}
+              {% if form.email.errors %}
+              <div class="invalid-feedback">
+                {{ form.email.errors|join:", " }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="form-group">
+              <label for="password1" class="mt-2">Hasło:</label>
+              {{ form.password1 }}
+              {% if form.password1.errors %}
+              <div class="invalid-feedback">
+                {{ form.password1.errors|join:", " }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="form-group">
+              <label for="password2" class="mt-2">Powtórz hasło:</label>
+              {{ form.password2 }}
+              {% if form.password2.errors %}
+              <div class="invalid-feedback">
+                {{ form.password2.errors|join:", " }}
+              </div>
+              {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Załóż konto</button>
+            <a href="{% url 'login' %}" class="btn btn-link">Masz już konto? Zaloguj się</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  /* Dodaj tutaj style CSS */
+  .card {
+    border: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-header {
+    background-color: #007bff;
+    color: white;
+    border-bottom: none;
+  }
+
+  .card-body {
+    padding: 30px;
+  }
+
+  .form-group label {
+    font-weight: bold;
+  }
+
+  .form-group label, .form-group input {
+    margin-top: 10px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+  .btn-link {
+    color: #007bff;
+  }
+
+  .btn-link:hover {
+    text-decoration: none;
+  }
+
+  .invalid-feedback {
+    color: red;
+    font-size: 12px;
+  }
+</style>
+{% endblock %}

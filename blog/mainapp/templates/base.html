@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Moja aplikacja{% endblock %}</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; 
+        }
+
+        .NavBar {
+            height: 8vh;
+            background-color: #4CAF50; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+        }
+
+        .NavBar h1 {
+            margin: 0;
+            color: white;
+        }
+
+        .NavBar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .maincontent {
+            height: 89vh;
+            background-color: #FFFFFF; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .footer {
+            height: 3vh;
+            background-color: #3498DB; 
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); 
+        }
+
+        .footer p {
+            margin: 0;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="NavBar">
+        <a href="{% url 'index' %}" style="text-decoration: none; color: white;">
+            <h1>Blog</h1>
+        </a>
+        <div>
+            <a href="{% url 'login' %}">Zaloguj się</a>
+            <a href="{% url 'signup' %}">Załóż konto</a>
+        </div>
+    </div>
+ 
+    <div class="maincontent">
+        {% block content %}cos{% endblock %}
+    </div>
+
+    <div class="footer">
+        <p>© 2024 Moja aplikacja. Wszelkie prawa zastrzeżone.</p>
+    </div>
+
+</body>
+</html>
