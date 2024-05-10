@@ -11,7 +11,7 @@ def my_login_view(request):
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('login/', my_login_view, name='login'),  
+    path('signup/login/', my_login_view, name='login'),
     path('signup/', views.signup, name='signup'),
     path('search/', views.search, name='search'),
 ]
