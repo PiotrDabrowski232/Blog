@@ -13,17 +13,28 @@
 </div>
 
 <div class="post-list" style="margin-top: 50px;">
-    {% if posts %}
-        <h2>Najnowsze posty:</h2>
-        <ul>
-            {% for post in posts %}
-                <li><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></li>
-            {% endfor %}
-        </ul>
+    {% if user.is_authenticated %}
+        {% if posts %}
+            <h2>Najnowsze posty:</h2>
+            <ul>
+                {% for post in posts %}
+                    <li><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div style="text-align: center;">
+                <p>Brak postów do wyświetlenia.</p>
+            </div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+        <button type="submit">Log Out</button>
+</form>
+        {% endif %}
     {% else %}
         <div style="text-align: center;">
-            <p>Brak postów do wyświetlenia.</p>
+                <p>nie jestes zalogowany siemano kolezko</p>
         </div>
     {% endif %}
+
 </div>
 {% endblock %}
