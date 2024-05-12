@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Lista Postów{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2>Lista Postów</h2>
+      <ul class="list-group mt-3">
+        {% for post in posts %}
+        <li class="list-group-item">
+          <h4>{{ post.tytul }}</h4>
+          <p>{{ post.tresc }}</p>
+          <small>Autor: {{ post.autor }}</small>
+          <br>
+          <small>Data utworzenia: {{ post.data_utworzenia }}</small>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

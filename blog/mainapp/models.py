@@ -16,7 +16,7 @@ class Post(models.Model):
     tytul = models.CharField(max_length=200)
     tresc = models.TextField()
     data_utworzenia = models.DateTimeField(auto_now_add=True)
-    autor = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
     dostep = models.CharField(max_length=20, choices=[('Publiczny', 'Publiczny'), ('Ograniczony', 'Ograniczony')])
     haslo_dostepu = models.CharField(max_length=100, blank=True, null=True)
 
@@ -40,8 +40,3 @@ class ElementGraficzny(models.Model):
     def __str__(self):
         return f"Element graficzny dla {self.post.tytul}"
 
-#class Author(models.Model):
- #   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  #  age = models.IntegerField(
-  #      validators=[MinValueValidator(1), MaxValueValidator(100)]
- #   )
