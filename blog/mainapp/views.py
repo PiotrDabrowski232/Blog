@@ -29,9 +29,9 @@ def signup(request):
 def search(request):
     query = request.GET.get('q')
     if query:
-        posts = Post.objects.filter(tytul__icontains=query)  # Przykładowe wyszukiwanie postów po tytule
+        posts = Post.objects.filter(tytul__icontains=query)  
     else:
-        posts = Post.objects.all()  # Jeśli nie podano zapytania, zwróć wszystkie posty
+        posts = Post.objects.all()  
     return render(request, 'search_results.html', {'posts': posts, 'query': query})
 
 
@@ -58,7 +58,8 @@ def post_list(request):
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    return render(request, 'post_detail.html', {'post': post})
+    return render(request, 'post/post_detail.html', {'post': post})
+
 
 def some_view(request):
     if request.POST:
