@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include 
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
 from . import views
@@ -17,4 +17,6 @@ urlpatterns = [
     path('createpost/', views.create_post_view, name='createpost'),
     path('posty/', views.post_list, name='post_list'),
     path('post/<int:post_id>/', views.post_detail, name='post_detail'),
+    path('captcha/', include('captcha.urls')),
+
 ]

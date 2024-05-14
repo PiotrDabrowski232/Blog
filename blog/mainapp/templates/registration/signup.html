@@ -47,6 +47,14 @@
               </div>
               {% endif %}
             </div>
+            <div class="form-group">
+              {{ form.captcha }}
+              {% if form.captcha.errors %}
+              <div class="invalid-feedback">
+                {{ form.captcha.errors|join:", " }}
+              </div>
+              {% endif %}
+            </div>
             <button type="submit" class="btn btn-primary">Załóż konto</button>
             <a href="{% url 'login' %}" class="btn btn-link">Masz już konto? Zaloguj się</a>
           </form>
@@ -101,5 +109,20 @@
     color: red;
     font-size: 12px;
   }
+    
+  img.captcha {
+    margin-top: 10px;
+    display: inline-block; 
+    vertical-align: middle; 
+    margin-bottom: 10px;
+    width: 150px; 
+    height: auto;
+  }
+  input[name="captcha_1"] {
+    display: inline-block; 
+    vertical-align: middle; 
+  }
+
+
 </style>
 {% endblock %}
