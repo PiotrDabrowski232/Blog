@@ -39,19 +39,12 @@ def create_post_view(request):
     if request.method == 'POST':
         form = CreatePostForm(request.POST)
         if form.is_valid():
-            print("Formularz jest poprawny")  
-            post = form.save(commit=False)
-            User = get_user_model()  
-            user_instance = User.objects.get(pk=request.user.pk) 
-            print(user_instance)
-            try:
-                post.autor = User.objects.get(email=user_instance.email)
-                post.data_utworzenia = timezone.now() 
-                print(user_instance.email)
-                post.save()
-                print("Post został pomyślnie zapisany")  
-            except Uzytkownik.DoesNotExist:
-                pass
+           post = Post(
+               tytul = form.cleaned_data["title"],
+               tresc = form.cleaned_data["description"],
+               autor = request.user
+           )
+           post.save()
     else:
         form = CreatePostForm()
     return render(request, './post/postForm.html', {'form': form})
