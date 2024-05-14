@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .forms import SignUpForm
 from .models import Post
@@ -6,6 +6,8 @@ from .forms import CreatePostForm
 from django.contrib.auth import get_user_model
 from .models import Uzytkownik
 from django.utils import timezone
+from django.shortcuts import render, get_object_or_404
+
 
 
 def index(request):
@@ -58,3 +60,10 @@ def create_post_view(request):
 def post_list(request):
     posts = Post.objects.all()
     return render(request, './post/post_list.html', {'posts': posts})
+
+
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    return render(request, 'post_detail.html', {'post': post})
+

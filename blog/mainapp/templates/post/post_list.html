@@ -15,6 +15,8 @@
           <small>Autor: {{ post.autor }}</small>
           <br>
           <small>Data utworzenia: {{ post.data_utworzenia }}</small>
+          <br>
+          <a href="{% url 'post_detail' post.id %}" class="btn btn-primary mt-2">Przeczytaj więcej</a>
         </li>
         {% endfor %}
       </ul>
