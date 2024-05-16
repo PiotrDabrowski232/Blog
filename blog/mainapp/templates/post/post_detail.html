@@ -11,6 +11,13 @@
       <small>Autor: {{ post.autor }}</small>
       <br>
       <small>Data utworzenia: {{ post.data_utworzenia }}</small>
+      <p>
+        <br>
+      {% if post.image %}
+      <img src="{{ post.image.url }}">
+      {% endif %}
+      </p>
+
     </div>
   </div>
 </div>

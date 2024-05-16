@@ -10,7 +10,7 @@
         <div class="card-header bg-primary text-white">NICCC</div>
         <div class="card-body">
 
-          <form method="post">
+          <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="form-group">
@@ -32,7 +32,17 @@
               </div>
               {% endif %}
             </div>
-            
+
+             <div class="form-group">
+                <label for="zdjecie" class="mt-2">Zdjęcie:</label>
+                {{ form.image }}
+                {% if form.image.errors %}
+                <div class="invalid-feedback">
+                  {{ form.image.errors|join:", " }}
+                </div>
+                {% endif %}
+             </div>
+
             <button type="submit" class="btn btn-primary">Dodaj Post</button>
 
           </form>

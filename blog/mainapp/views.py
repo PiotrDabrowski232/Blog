@@ -37,12 +37,14 @@ def search(request):
 
 def create_post_view(request):
     if request.method == 'POST':
-        form = CreatePostForm(request.POST)
+        form = CreatePostForm(request.POST, request.FILES)
         if form.is_valid():
            post = Post(
                tytul = form.cleaned_data["title"],
                tresc = form.cleaned_data["description"],
+               image = form.cleaned_data["image"],
                autor = request.user
+
            )
            post.save()
     else:

@@ -19,6 +19,7 @@ class Post(models.Model):
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     dostep = models.CharField(max_length=20, choices=[('Publiczny', 'Publiczny'), ('Ograniczony', 'Ograniczony')])
     haslo_dostepu = models.CharField(max_length=100, blank=True, null=True)
+    image = models.ImageField(null=True, blank=True, upload_to="images/")
 
     def __str__(self):
         return self.tytul
