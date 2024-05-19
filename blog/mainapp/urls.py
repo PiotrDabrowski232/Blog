@@ -18,5 +18,5 @@ urlpatterns = [
     path('posty/', views.post_list, name='post_list'),
     path('post/<int:post_id>/', views.post_detail, name='post_detail'),
     path('captcha/', include('captcha.urls')),
-
+    path('post/<int:post_id>/add_comment/', views.add_comment, name='add_comment'),
 ]

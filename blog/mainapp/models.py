@@ -27,7 +27,7 @@ class Post(models.Model):
 class Komentarz(models.Model):
     tresc = models.TextField()
     data_dodania = models.DateTimeField(auto_now_add=True)
-    autor = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     def __str__(self):

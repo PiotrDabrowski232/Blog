@@ -3,10 +3,9 @@ from django.contrib.auth.models import User
 from .forms import SignUpForm
 from .models import Post
 from .forms import CreatePostForm
-from django.contrib.auth import get_user_model
-from .models import Uzytkownik
-from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
+from .forms import CreateCommentForm
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -44,7 +43,6 @@ def create_post_view(request):
                tresc = form.cleaned_data["description"],
                image = form.cleaned_data["image"],
                autor = request.user
-
            )
            post.save()
     else:
@@ -60,6 +58,7 @@ def post_list(request):
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
+    print(post_id)
     return render(request, 'post/post_detail.html', {'post': post})
 
 
@@ -72,3 +71,36 @@ def some_view(request):
         form = CaptchaTestForm()
 
     return render(request, 'template.html', {'form':form})
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
+from .forms import CreateCommentForm
+from .models import Post, Komentarz
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
+from .forms import CreateCommentForm
+from .models import Post
+
+@login_required
+def add_comment(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'POST':
+        form = CreateCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.autor = request.user
+            comment.post = post
+            comment.save()
+            return redirect('post_detail', post_id=post_id)
+    else:
+        form = CreateCommentForm()
+    return redirect('post_detail', post_id=post_id)
+
+
+
+
+
+

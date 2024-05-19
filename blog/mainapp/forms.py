@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, Komentarz
 from captcha.fields import CaptchaField
 
 
@@ -24,3 +24,10 @@ class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title', 'description','image')
+
+class CreateCommentForm(forms.ModelForm):
+    comment = forms.CharField(label='comment', widget=forms.Textarea(attrs={'rows': 4}))
+
+    class Meta:
+        model = Komentarz
+        fields = ('comment',)
