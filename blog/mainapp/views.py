@@ -10,8 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    all_users = User.objects.all()
-    return render(request, "index.html", {"users":all_users})
+    return redirect('post_list')
 
 
 def signup(request):
@@ -38,21 +37,41 @@ def create_post_view(request):
     if request.method == 'POST':
         form = CreatePostForm(request.POST, request.FILES)
         if form.is_valid():
-           post = Post(
-               tytul = form.cleaned_data["title"],
-               tresc = form.cleaned_data["description"],
-               image = form.cleaned_data["image"],
-               autor = request.user
-           )
-           post.save()
+            # Uzyskujemy dane z formularza
+            tytul = form.cleaned_data['title']
+            tresc = form.cleaned_data['description']
+            image = form.cleaned_data['image']
+            dostep = form.cleaned_data['dostep']
+            
+            # Tworzymy nowy obiekt Post i zapisujemy go
+            post = Post(
+                tytul=tytul,
+                tresc=tresc,
+                image=image,
+                dostep=dostep,
+                autor=request.user,
+            )
+            post.save()
     else:
         form = CreatePostForm()
     return render(request, './post/postForm.html', {'form': form})
 
 
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Post
+from .forms import CreatePostForm, CreateCommentForm
+
+def index(request):
+    return redirect('post_list')
+
 def post_list(request):
-    posts = Post.objects.all()
+    if request.user.is_authenticated:
+        posts = Post.objects.all()
+    else:
+        posts = Post.objects.filter(dostep='Publiczny')
     return render(request, './post/post_list.html', {'posts': posts})
+
 
 
 
@@ -98,6 +117,7 @@ def add_comment(request, post_id):
     else:
         form = CreateCommentForm()
     return redirect('post_detail', post_id=post_id)
+
 
 
 

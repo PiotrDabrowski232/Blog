@@ -17,13 +17,16 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
 
+
 class CreatePostForm(forms.ModelForm):
-    title = forms.CharField(label='title', min_length=5, max_length=20)
-    description = forms.CharField(label='description', min_length=20, max_length=100)
+    title = forms.CharField(label='Tytuł', min_length=5, max_length=20)
+    description = forms.CharField(label='Treść', min_length=20, max_length=100)
+    dostep = forms.ChoiceField(label='Dostęp', choices=Post.DOSTEP_CHOICES)
 
     class Meta:
         model = Post
-        fields = ('title', 'description','image')
+        fields = ('title', 'description', 'image', 'dostep')
+
 
 class CreateCommentForm(forms.ModelForm):
     comment = forms.CharField(label='comment', widget=forms.Textarea(attrs={'rows': 4}))
