@@ -1,40 +1,17 @@
-{% extends "base.html" %}
+<!-- index.html -->
+{% extends 'base.html' %}
 
 {% block title %}Strona główna{% endblock %}
 
 {% block content %}
-<div style="position: fixed; top: 90px; right: 30px; z-index: 999;">
-    <div class="search-container">
-        <form action="{% url 'search' %}" method="GET">
-            <input type="text" placeholder="Wyszukaj..." name="q" style="padding: 5px;">
-            <button type="submit" style="padding: 5px;">Szukaj</button>
-        </form>
-    </div>
-</div>
-
-<div class="post-list" style="margin-top: 50px;">
+    <h1>Witaj na naszej stronie!</h1>
     {% if user.is_authenticated %}
-        {% if posts %}
-            <h2>Najnowsze posty:</h2>
-            <ul>
-                {% for post in posts %}
-                    <li><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <div style="text-align: center;">
-                <p>Brak postów do wyświetlenia.</p>
-            </div>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-        <button type="submit">Log Out</button>
-</form>
-        {% endif %}
-    {% else %}
-        <div style="text-align: center;">
-                <p>nie jestes zalogowany siemano kolezko</p>
-        </div>
+        <h2>Twoje posty:</h2>
+        <ul>
+            {% for post in posts %}
+                <li>{{ post.title }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'create_post' %}">Stwórz nowy post</a>
     {% endif %}
-
-</div>
 {% endblock %}

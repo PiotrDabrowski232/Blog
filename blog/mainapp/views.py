@@ -6,6 +6,8 @@ from .forms import CreatePostForm
 from django.shortcuts import render, get_object_or_404
 from .forms import CreateCommentForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
 
 
 
@@ -37,13 +39,11 @@ def create_post_view(request):
     if request.method == 'POST':
         form = CreatePostForm(request.POST, request.FILES)
         if form.is_valid():
-            # Uzyskujemy dane z formularza
             tytul = form.cleaned_data['title']
             tresc = form.cleaned_data['description']
             image = form.cleaned_data['image']
             dostep = form.cleaned_data['dostep']
             
-            # Tworzymy nowy obiekt Post i zapisujemy go
             post = Post(
                 tytul=tytul,
                 tresc=tresc,
@@ -90,6 +90,19 @@ def some_view(request):
         form = CaptchaTestForm()
 
     return render(request, 'template.html', {'form':form})
+
+
+
+from django.views.decorators.http import require_POST
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+@require_POST
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+
+
 
 
 from django.contrib.auth.decorators import login_required

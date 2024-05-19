@@ -2,6 +2,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
 from . import views
+from .views import logout_view
 
 def my_login_view(request):
     response = auth_views.LoginView.as_view()(request)
@@ -19,4 +20,5 @@ urlpatterns = [
     path('post/<int:post_id>/', views.post_detail, name='post_detail'),
     path('captcha/', include('captcha.urls')),
     path('post/<int:post_id>/add_comment/', views.add_comment, name='add_comment'),
+    path('logout/', logout_view, name='logout'), 
 ]

@@ -2,84 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Moja aplikacja{% endblock %}</title>
-
+    <title>{% block title %}Strona{% endblock %}</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0; 
+        /* Stylizacja nagłówka */
+        header {
+            background-color: #4CAF50; /* Zielony kolor */
+            color: white; /* Biały kolor tekstu */
+            padding: 10px; /* Wewnętrzny padding */
+            display: flex; /* Ustawienie flexbox */
+            justify-content: space-between; /* Rozłożenie elementów na boki */
+            align-items: center; /* Wyśrodkowanie w pionie */
         }
-
-        .NavBar {
-            height: 8vh;
-            background-color: #4CAF50; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-        }
-
-        .NavBar h1 {
-            margin: 0;
-            color: white;
-        }
-
-        .NavBar a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-
-        .maincontent {
-            height: 89vh;
-            background-color: #FFFFFF; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px; 
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-            margin: 20px;
-            padding: 20px;
-        }
-
-        .footer {
-            height: 3vh;
-            background-color: #3498DB; 
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); 
-        }
-
-        .footer p {
-            margin: 0;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
+        /* Stylizacja linków w menu nawigacyjnym */
+        nav a {
+            color: white; /* Biały kolor linków */
+            text-decoration: none; /* Usunięcie podkreślenia */
+            margin: 0 10px; /* Margines między linkami */
         }
     </style>
 </head>
 <body>
-    <div class="NavBar">
+    <header>
         <a href="{% url 'index' %}" style="text-decoration: none; color: white;">
             <h1>Blog</h1>
         </a>
-        <div>
-            <a href="{% url 'login' %}">Zaloguj się</a>
-            <a href="{% url 'signup' %}">Załóż konto</a>
-            <a href="{% url 'createpost' %}">Utwórz nowy post</a>
-            <a href="{% url 'post_list' %}">Lista Postów</a>
-        </div>
-    </div>
- 
-    <div class="maincontent">
-        {% block content %}cos{% endblock %}
-    </div>
+        <nav>
+            {% if user.is_authenticated %}
+                <p>Witaj, {{ user.email }}</p>
+                <a href="{% url 'createpost' %}" style="text-decoration: none; color: white;">Stwórz post</a> | 
+                <form action="{% url 'logout' %}" method="post" id="logout-form" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="text-decoration: none; color: white; background-color: transparent; border: none;">Wyloguj się</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" style="text-decoration: none; color: white;">Zaloguj się</a> | 
+                <a href="{% url 'signup' %}" style="text-decoration: none; color: white;">Załóż konto</a>
+            {% endif %}
+        </nav>
+    </header>
 
-    <div class="footer">
-        <p>© 2024 Moja aplikacja. Wszelkie prawa zastrzeżone.</p>
-    </div>
-
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
