@@ -1,113 +1,122 @@
 {% extends "base.html" %}
 
-{% block title %}Stwóz post{% endblock %}
+{% block title %}Stwórz post{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card border-primary">
-        <div class="card-header bg-primary text-white">NICCC</div>
+<div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="row justify-content-center w-100">
+    <div class="col-md-8">
+      <div class="card border-light shadow-sm">
         <div class="card-body">
-
+          <h2 class="card-title text-center mb-4">Stwórz post</h2>
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
         
-            <div class="form-group">
-                <label for="tytul">Tytuł:</label>
+            <div class="form-group mb-4">
+                <label for="id_title" class="fs-5">Tytuł:</label>
                 {{ form.title }}
                 {% if form.title.errors %}
-                <div class="invalid-feedback">
+                <div class="invalid-feedback d-block">
                     {{ form.title.errors|join:", " }}
                 </div>
                 {% endif %}
             </div>
         
-            <div class="form-group">
-                <label for="tresc" class="mt-2">Zawartość Postu:</label>
+            <div class="form-group mb-4">
+                <label for="id_description" class="fs-5">Treść:</label>
                 {{ form.description }}
-                {% if form.tresc.errors %}
-                <div class="invalid-feedback">
+                {% if form.description.errors %}
+                <div class="invalid-feedback d-block">
                     {{ form.description.errors|join:", " }}
                 </div>
                 {% endif %}
             </div>
         
-            <div class="form-group">
-                <label for="zdjecie" class="mt-2">Zdjęcie:</label>
+            <div class="form-group mb-4">
+                <label for="id_image" class="fs-5">Zdjęcie:</label>
                 {{ form.image }}
                 {% if form.image.errors %}
-                <div class="invalid-feedback">
+                <div class="invalid-feedback d-block">
                     {{ form.image.errors|join:", " }}
                 </div>
                 {% endif %}
             </div>
         
-            <div class="form-check">
-              <input type="radio" class="form-check-input" id="publiczny" name="dostep" value="Publiczny" checked>
-              <label class="form-check-label" for="publiczny">Publiczny</label>
-          </div>
-          
-          <div class="form-check">
-              <input type="radio" class="form-check-input" id="ograniczony" name="dostep" value="Ograniczony">
-              <label class="form-check-label" for="ograniczony">Ograniczony</label>
-          </div>
-          
+            <div class="form-group mb-4">
+                <label for="id_dostep" class="fs-5">Dostęp:</label>
+                {{ form.dostep }}
+                {% if form.dostep.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.dostep.errors|join:", " }}
+                </div>
+                {% endif %}
+            </div>
         
-            <button type="submit" class="btn btn-primary">Dodaj Post</button>
-        </form>
-        
-
+            <button type="submit" class="btn btn-primary mt-4 w-100 fs-5">Dodaj Post</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <style>
-  /* Dodaj tutaj style CSS */
   .card {
     border: none;
+    border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
-  .card-header {
-    background-color: #007bff;
-    color: white;
-    border-bottom: none;
+  .card-title {
+    font-size: 2rem;
+    color: #343a40;
   }
 
   .card-body {
-    padding: 30px;
+    padding: 40px;
   }
 
   .form-group label {
     font-weight: bold;
+    color: #495057;
   }
 
-  .form-group label, .form-group input {
+  .form-group input,
+  .form-group label,
+  .form-group .form-control,
+  .form-group .form-control-file,
+  .form-group .custom-select {
     margin-top: 10px;
   }
 
+  .form-group .fs-5 {
+    font-size: 1.25rem;
+  }
+
   .btn-primary {
-    background-color: #007bff;
+    background-color: #6c757d;
     border: none;
   }
 
   .btn-primary:hover {
-    background-color: #0056b3;
-  }
-
-  .btn-link {
-    color: #007bff;
-  }
-
-  .btn-link:hover {
-    text-decoration: none;
+    background-color: #5a6268;
   }
 
   .invalid-feedback {
     color: red;
     font-size: 12px;
   }
+  .form-group:not(:last-child) {
+    margin-bottom: 1rem;
+  }
 </style>
+
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script>
+  CKEDITOR.replace('id_description', {
+    height: 300,
+  });
+</script>
 {% endblock %}
