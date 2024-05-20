@@ -17,7 +17,7 @@ class SignUpForm(UserCreationForm):
 
 class CreatePostForm(forms.ModelForm):
     title = forms.CharField(label='Tytuł', min_length=5, max_length=20, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    description = forms.CharField(label='Treść', min_length=20, max_length=100, widget=forms.Textarea(attrs={'class': 'form-control'}))
+    description = forms.CharField(label='Treść', min_length=20, max_length=2000, widget=forms.Textarea(attrs={'class': 'form-control'}))
     dostep = forms.ChoiceField(label='Dostęp', choices=Post.DOSTEP_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:

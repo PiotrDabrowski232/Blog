@@ -14,7 +14,7 @@ class Uzytkownik(models.Model):
 
 class Post(models.Model):
     tytul = models.CharField(max_length=200)
-    tresc = models.TextField()
+    tresc = models.TextField(max_length=2000)  
     data_utworzenia = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True, upload_to="images/")

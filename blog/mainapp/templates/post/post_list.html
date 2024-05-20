@@ -3,24 +3,98 @@
 {% block title %}Lista Postów{% endblock %}
 
 {% block content %}
+<style>
+  .post-card {
+    border: 1px solid #191818;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 100%;
+    height: 85% ;
+    overflow: hidden;
+  }
+
+  .post-title {
+    font-size: 1.2rem;
+    color: #000000;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .post-text {
+    font-size: 1rem;
+    color: #050505;
+    margin: 10px;
+    overflow: hidden;
+    height: 60%;
+  }
+
+  .post-image {
+    max-width: 30%;
+    max-height: 30%;
+    margin: 20px auto;
+    display: block;
+  }
+
+  .post-info {
+    font-size: 0.9rem;
+    color: #060606;
+    margin: 10px;
+  }
+
+  .read-more-btn {
+    background-color: #a9b1b9;
+    color: #000000;
+    border: none;
+    margin: 10px;
+    display: block;
+  }
+
+  .read-more-btn:hover {
+    background-color: #515253;
+  }
+
+  @media (min-width: 768px) {
+    .col-md-4 {
+      flex: 0 0 calc(27% - 20px);
+      max-width: calc(27% - 20px);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .col-md-4 {
+      padding: 0 10px;
+    }
+  }
+</style>
+
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h2>Lista Postów</h2>
-      <ul class="list-group mt-3">
-        {% for post in posts %}
-        <li class="list-group-item">
-          <h4>{{ post.tytul }}</h4>
-          <p>{{ post.tresc }}</p>
-          <small>Autor: {{ post.autor }}</small>
+    {% for post in posts %}
+    <div class="col-md-4 mb-3">
+      <div class="card post-card">
+        <div class="card-body">
+          <h5 class="card-title post-title">{{ post.tytul }}</h5>
+          <p class="card-text post-text">{{ post.tresc|truncatewords_html:10 }}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted post-info">Autor: {{ post.autor }}</small>
           <br>
-          <small>Data utworzenia: {{ post.data_utworzenia }}</small>
-          <br>
-          <a href="{% url 'post_detail' post.id %}" class="btn btn-primary mt-2">Przeczytaj więcej</a>
-        </li>
-        {% endfor %}
-      </ul>
+          <small class="text-muted post-info">Data utworzenia: {{ post.data_utworzenia }}</small>
+        </div>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.tytul }}" class="post-image">
+        {% endif %}
+        <a href="{% url 'post_detail' post.id %}" class="btn btn-primary read-more-btn">Przeczytaj więcej</a>
+      </div>
     </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
