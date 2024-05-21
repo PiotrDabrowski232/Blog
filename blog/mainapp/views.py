@@ -116,13 +116,13 @@ from django.shortcuts import get_object_or_404, redirect
 from .forms import CreateCommentForm
 from .models import Post
 
-@login_required
 def add_comment(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.method == 'POST':
         form = CreateCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.tresc = form.cleaned_data['comment']
             comment.autor = request.user
             comment.post = post
             comment.save()
