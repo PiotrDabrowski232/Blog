@@ -19,17 +19,47 @@
   }
 
   .post-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  text-align: center;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    text-align: center;
+  }
 
   .post-content img {
     max-width: 50%;
     height: auto;
     margin-right: 20px;
+  }
+
+  .comment-section {
+    margin-top: 40px;
+  }
+
+  .comment {
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+
+  .comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .comment-date {
+    font-size: 0.8rem;
+    color: #777;
+    text-align: right;
+  }
+
+  .comment-form {
+    margin-bottom: 40px;
+  }
+
+  .submit-btn {
+    margin-top: 10px;
   }
 </style>
 
@@ -45,17 +75,30 @@
         <p>{{ post.tresc }}</p>
       </div>
       <small>Data utworzenia: {{ post.data_utworzenia }}</small>
-      
-      <button id="add-comment-button" class="btn btn-primary mt-3">Dodaj komentarz</button>
 
-      <form id="comment-form" method="post" action="{% url 'add_comment' post.id %}" style="display: none;" class="mt-3">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="comment">Komentarz:</label>
-          <textarea id="comment" name="comment" class="form-control" rows="4" required></textarea>
+      <div class="comment-form">
+        <h3>Dodaj komentarz</h3>
+        <form id="comment-form" method="post" action="{% url 'add_comment' post.id %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="comment">Twój komentarz:</label>
+            {{ form.comment }}
+          </div>
+          <button type="submit" class="btn btn-success submit-btn">Dodaj komentarz</button>
+        </form>
+      </div>
+
+      <div class="comment-section">
+        <h3>Komentarze</h3>
+        {% for comment in comments %}
+        <div class="comment">
+          <p class="comment-author">{{ comment.autor.username }}</p>
+          <p>{{ comment.tresc }}</p>
+          <p class="comment-date">{{ comment.data_dodania }}</p>
         </div>
-        <button type="submit" class="btn btn-success mt-2">Dodaj</button>
-      </form>
+        {% endfor %}
+      </div>
+
     </div>
   </div>
 </div>

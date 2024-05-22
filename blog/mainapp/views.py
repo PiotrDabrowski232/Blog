@@ -53,6 +53,7 @@ def create_post_view(request):
                 autor=request.user,
             )
             post.save()
+            return redirect('post_list')  
     else:
         form = CreatePostForm()
     return render(request, './post/postForm.html', {'form': form})
@@ -131,6 +132,12 @@ def add_comment(request, post_id):
     else:
         form = CreateCommentForm()
     return redirect('post_detail', post_id=post_id)
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    comments = Komentarz.objects.filter(post=post).order_by('-data_dodania')
+    form = CreateCommentForm()
+    return render(request, 'post/post_detail.html', {'post': post, 'comments': comments, 'form': form})
 
 
 
