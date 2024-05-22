@@ -5,15 +5,20 @@
 {% block content %}
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card border-primary">
-        <div class="card-header bg-primary text-white">Załóż konto</div>
+    <div class="col-md-4"> 
+      <div class="card border-secondary" style="margin-top: 30px;"> 
+        <div class="card-header bg-secondary text-white">Załóż konto</div> 
         <div class="card-body">
           <form method="post">
             {% csrf_token %}
             <div class="form-group">
               <label for="username">Nazwa użytkownika:</label>
-              {{ form.username }}
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                {{ form.username }}
+              </div>
               {% if form.username.errors %}
               <div class="invalid-feedback">
                 {{ form.username.errors|join:", " }}
@@ -22,7 +27,12 @@
             </div>
             <div class="form-group">
               <label for="email" class="mt-2">Adres email:</label>
-              {{ form.email }}
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                </div>
+                {{ form.email }}
+              </div>
               {% if form.email.errors %}
               <div class="invalid-feedback">
                 {{ form.email.errors|join:", " }}
@@ -31,7 +41,12 @@
             </div>
             <div class="form-group">
               <label for="password1" class="mt-2">Hasło:</label>
-              {{ form.password1 }}
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                </div>
+                {{ form.password1 }}
+              </div>
               {% if form.password1.errors %}
               <div class="invalid-feedback">
                 {{ form.password1.errors|join:", " }}
@@ -40,7 +55,12 @@
             </div>
             <div class="form-group">
               <label for="password2" class="mt-2">Powtórz hasło:</label>
-              {{ form.password2 }}
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                </div>
+                {{ form.password2 }}
+              </div>
               {% if form.password2.errors %}
               <div class="invalid-feedback">
                 {{ form.password2.errors|join:", " }}
@@ -55,7 +75,7 @@
               </div>
               {% endif %}
             </div>
-            <button type="submit" class="btn btn-primary">Załóż konto</button>
+            <button type="submit" class="btn btn-primary btn-block">Załóż konto</button>
             <a href="{% url 'login' %}" class="btn btn-link">Masz już konto? Zaloguj się</a>
           </form>
         </div>
@@ -64,65 +84,92 @@
   </div>
 </div>
 <style>
-  /* Dodaj tutaj style CSS */
   .card {
     border: none;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
   }
 
   .card-header {
-    background-color: #007bff;
+    background-color: #6c757d; 
     color: white;
     border-bottom: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 1.5rem;
   }
 
   .card-body {
     padding: 30px;
+    background-color: #f7f7f7;
   }
 
-  .form-group label {
-    font-weight: bold;
+  .input-group-prepend .input-group-text {
+    background-color: #28a745; 
+    color: white;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
   }
 
-  .form-group label, .form-group input {
-    margin-top: 10px;
+  .form-control {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
   .btn-primary {
-    background-color: #007bff;
+    background-color: #28a745; 
     border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
   }
 
   .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #218838; 
   }
 
-  .btn-link {
-    color: #007bff;
+  .form-group {
+    margin-bottom: 20px; 
   }
 
-  .btn-link:hover {
+  .signup-link {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .signup-link a {
+    color: #28a745; 
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  .signup-link a:hover {
     text-decoration: none;
+    color: #218838; 
   }
 
   .invalid-feedback {
-    color: red;
-    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+    font-size: 0.875rem;
+    color: #dc3545;
   }
-    
+
   img.captcha {
     margin-top: 10px;
-    display: inline-block; 
-    vertical-align: middle; 
+    display: inline-block;
+    vertical-align: middle;
     margin-bottom: 10px;
-    width: 150px; 
+    width: 150px;
     height: auto;
   }
+
   input[name="captcha_1"] {
-    display: inline-block; 
-    vertical-align: middle; 
+    display: inline-block;
+    vertical-align: middle;
   }
-
-
 </style>
 {% endblock %}

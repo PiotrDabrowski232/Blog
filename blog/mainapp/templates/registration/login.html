@@ -5,40 +5,60 @@
 {% block content %}
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card border-primary">
-        <div class="card-header bg-primary text-white">Zaloguj się</div>
+    <div class="col-md-4">  
+      <div class="card border-secondary" style="margin-top: 30px;"> 
+        <div class="card-header bg-secondary text-white">Zaloguj się</div> 
         <div class="card-body">
           <style>
-            /* Dodaj style CSS tutaj */
             .card {
                 border: none;
                 box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                text-align: center;
             }
 
             .card-header {
-                background-color: #007bff;
+                background-color: #6c757d; 
                 color: white;
                 border-bottom: none;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                font-size: 1.5rem;
             }
 
             .card-body {
                 padding: 30px;
+                background-color: #f7f7f7;
             }
 
             .input-group-prepend .input-group-text {
-                background-color: #61a5ed;
+                background-color: #28a745; 
                 color: white;
                 border: none;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            .form-control {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
             }
 
             .btn-primary {
-                background-color: #61a5ed;
+                background-color: #28a745; 
                 border: none;
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 1rem;
+                transition: background-color 0.3s;
             }
 
             .btn-primary:hover {
-                background-color: #61a5ed;
+                background-color: #218838; 
+            }
+
+            .form-group {
+                margin-bottom: 20px; 
             }
 
             .signup-link {
@@ -47,11 +67,21 @@
             }
 
             .signup-link a {
-                color: #007bff;
+                color: #28a745; 
+                font-weight: bold;
+                transition: color 0.3s;
             }
 
             .signup-link a:hover {
                 text-decoration: none;
+                color: #218838; 
+            }
+
+            .invalid-feedback {
+                display: block;
+                margin-top: 5px;
+                font-size: 0.875rem;
+                color: #dc3545;
             }
           </style>
           <form method="post">

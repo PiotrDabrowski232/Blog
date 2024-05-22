@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from .forms import CreateCommentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from captcha.fields import CaptchaField
 
 
 

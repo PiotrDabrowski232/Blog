@@ -9,7 +9,7 @@ class SignUpForm(UserCreationForm):
     email = forms.EmailField(label='email', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     password1 = forms.CharField(label='password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    captcha = CaptchaField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    captcha = CaptchaField()
 
     class Meta:
         model = User
