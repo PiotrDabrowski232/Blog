@@ -140,6 +140,14 @@ def post_detail(request, post_id):
     return render(request, 'post/post_detail.html', {'post': post, 'comments': comments, 'form': form})
 
 
+def search(request):
+    if request.method=="POST":
+        searched=request.POST.get('searched')
+        post = Post.objects.filter(tytul__contains=searched)
+
+        return render(request, 'post/search.html', {'searched':searched,'post':post})
+    else:
+        return render(request, 'post/search.html', {})
 
 
 

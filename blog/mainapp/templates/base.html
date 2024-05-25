@@ -28,6 +28,11 @@
         </a>
         <nav>
             {% if user.is_authenticated %}
+                <form class = "d-flex" method=POST action="{% url 'search' %} ">
+                    {% csrf_token %}
+                    <input class=" form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </form>
                 <p>Witaj, {{ user.email }}</p>
                 <a href="{% url 'createpost' %}" style="text-decoration: none; color: white;">Stwórz post</a> | 
                 <form action="{% url 'logout' %}" method="post" id="logout-form" style="display: inline;">

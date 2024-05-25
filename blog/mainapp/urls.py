@@ -20,5 +20,6 @@ urlpatterns = [
     path('post/<int:post_id>/', views.post_detail, name='post_detail'),
     path('captcha/', include('captcha.urls')),
     path('post/<int:post_id>/add_comment/', views.add_comment, name='add_comment'),
-    path('logout/', logout_view, name='logout'), 
+    path('logout/', logout_view, name='logout'),
+    path('search/', views.search, name='search')
 ]
