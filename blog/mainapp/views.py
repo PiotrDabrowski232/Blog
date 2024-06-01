@@ -143,7 +143,10 @@ def post_detail(request, post_id):
 def search(request):
     if request.method=="POST":
         searched=request.POST.get('searched')
-        post = Post.objects.filter(tytul__contains=searched)
+        if request.user.is_authenticated:
+            post = Post.objects.filter(tytul__contains=searched)
+        else:
+            post = Post.objects.filter(dostep='Publiczny',tytul__contains=searched)
 
         return render(request, 'post/search.html', {'searched':searched,'post':post})
     else:

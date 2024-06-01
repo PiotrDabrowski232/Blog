@@ -40,6 +40,11 @@
                     <button type="submit" style="text-decoration: none; color: white; background-color: transparent; border: none;">Wyloguj się</button>
                 </form>
             {% else %}
+                <form class = "d-flex" method=POST action="{% url 'search' %} ">
+                    {% csrf_token %}
+                    <input class=" form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </form>
                 <a href="{% url 'login' %}" style="text-decoration: none; color: white;">Zaloguj się</a> | 
                 <a href="{% url 'signup' %}" style="text-decoration: none; color: white;">Załóż konto</a>
             {% endif %}

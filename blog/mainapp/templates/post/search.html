@@ -7,6 +7,7 @@
     {% if searched %}
         <h1>Wyszukiwarka postów</h1>
     {% for p in post %}
+
         <a href="{% url 'post_detail' p.id %}" >{{ p }} </a><br><br>
     {% endfor %}
     {% else %}
