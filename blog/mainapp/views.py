@@ -19,7 +19,9 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
+            print("dodano uzytkownika")
             return redirect('login')
+
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
@@ -44,7 +46,9 @@ def create_post_view(request):
             post = form.save(commit=False)
             post.autor = request.user
             post.save()
+            print("dodano post")
             return redirect('post_list')
+
     else:
         form = CreatePostForm()
     return render(request, './post/postForm.html', {'form': form})
@@ -56,12 +60,14 @@ def post_list(request):
         posts = Post.objects.all()
     else:
         posts = Post.objects.filter(dostep='Publiczny')
+    print("wyswietlono liste postow")
     return render(request, './post/post_list.html', {'posts': posts})
 
 
 # Widok szczegółów postu
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
+    print("sprawdzono szczeguły posta")
     return render(request, 'post/post_detail.html', {'post': post})
 
 
@@ -92,20 +98,22 @@ def add_comment(request, post_id):
         form = CreateCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.tresc = form.cleaned_data['comment']
             comment.autor = request.user
             comment.post = post
             comment.save()
+            print("dodano komentarz")
             return redirect('post_detail', post_id=post_id)
     else:
         form = CreateCommentForm()
     return redirect('post_detail', post_id=post_id)
-
 
 # Widok szczegółów postu z uwzględnieniem komentarzy
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     comments = Komentarz.objects.filter(post=post).order_by('-data_dodania')
     form = CreateCommentForm()
+    print("wyswietlono szczegoly posta")
     return render(request, 'post/post_detail.html', {'post': post, 'comments': comments, 'form': form})
 
 
@@ -113,10 +121,12 @@ def post_detail(request, post_id):
 def search(request):
     if request.method == "POST":
         searched = request.POST.get('searched')
+
         if request.user.is_authenticated:
             post = Post.objects.filter(tytul__contains=searched)
         else:
             post = Post.objects.filter(dostep='Publiczny', tytul__contains=searched)
+        print('uzyto wyszukiwarki')
 
         return render(request, 'post/search.html', {'searched': searched, 'post': post})
     else:
