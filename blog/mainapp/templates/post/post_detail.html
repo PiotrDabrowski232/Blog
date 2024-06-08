@@ -66,34 +66,48 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8 centered">
+      <!-- Wyświetl tytuł posta -->
       <h2 class="big-title">{{ post.tytul }}</h2>
+      <!-- Wyświetl autora posta -->
       <h4 class="big-author">Autor: {{ post.autor }}</h4>
       <div class="post-content">
+        <!-- Sprawdź, czy post ma obrazek i wyświetl go, jeśli jest dostępny -->
         {% if post.image %}
         <img src="{{ post.image.url }}">
         {% endif %}
+        <!-- Wyświetl treść posta -->
         <p>{{ post.tresc }}</p>
       </div>
+      <!-- Wyświetl datę utworzenia posta -->
       <small>Data utworzenia: {{ post.data_utworzenia }}</small>
 
+      <!-- Sekcja formularza komentarzy -->
       <div class="comment-form">
         <h3>Dodaj komentarz</h3>
+        <!-- Formularz do dodawania komentarza, wysyłający dane do URL 'add_comment' -->
         <form id="comment-form" method="post" action="{% url 'add_comment' post.id %}">
           {% csrf_token %}
           <div class="form-group">
             <label for="comment">Twój komentarz:</label>
+            <!-- Renderowanie pola formularza komentarza -->
             {{ form.comment }}
           </div>
+          <!-- Przycisk wysyłania formularza komentarza -->
           <button type="submit" class="btn btn-success submit-btn">Dodaj komentarz</button>
         </form>
       </div>
 
+      <!-- Sekcja komentarzy wyświetlająca wszystkie komentarze -->
       <div class="comment-section">
         <h3>Komentarze</h3>
+        <!-- Pętla przez każdy komentarz i jego wyświetlenie -->
         {% for comment in comments %}
         <div class="comment">
+          <!-- Wyświetl autora komentarza -->
           <p class="comment-author">{{ comment.autor.username }}</p>
+          <!-- Wyświetl treść komentarza -->
           <p>{{ comment.tresc }}</p>
+          <!-- Wyświetl datę dodania komentarza -->
           <p class="comment-date">{{ comment.data_dodania }}</p>
         </div>
         {% endfor %}
@@ -104,6 +118,7 @@
 </div>
 
 <script>
+  // Dodaj nasłuchiwacz zdarzeń, aby przełączać widoczność formularza komentarzy
   document.getElementById("add-comment-button").addEventListener("click", function() {
     var commentForm = document.getElementById("comment-form");
     if (commentForm.style.display === "none") {

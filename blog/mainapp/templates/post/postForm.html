@@ -8,45 +8,57 @@
     <div class="col-md-8">
       <div class="card border-light shadow-sm">
         <div class="card-body">
+          <!-- Nagłówek formularza -->
           <h2 class="card-title text-center mb-4">Stwórz post</h2>
+          <!-- Formularz do tworzenia postu -->
           <form method="post" enctype="multipart/form-data">
+            <!-- Token CSRF do zabezpieczenia formularza -->
             {% csrf_token %}
+            <!-- Pole tytułu postu -->
             <div class="form-group mb-4">
                 <label for="id_title" class="fs-5">Tytuł:</label>
                 {{ form.title }}
+                <!-- Wyświetlanie błędów walidacji dla pola tytułu -->
                 {% if form.title.errors %}
                 <div class="invalid-feedback d-block">
                     {{ form.title.errors|join:", " }}
                 </div>
                 {% endif %}
             </div>
+            <!-- Pole treści postu -->
             <div class="form-group mb-4">
                 <label for="id_description" class="fs-5">Treść:</label>
                 {{ form.description }}
+                <!-- Wyświetlanie błędów walidacji dla pola treści -->
                 {% if form.description.errors %}
                 <div class="invalid-feedback d-block">
                     {{ form.description.errors|join:", " }}
                 </div>
                 {% endif %}
             </div>
+            <!-- Pole dodawania zdjęcia -->
             <div class="form-group mb-4">
                 <label for="id_image" class="fs-5">Zdjęcie:</label>
                 {{ form.image }}
+                <!-- Wyświetlanie błędów walidacji dla pola zdjęcia -->
                 {% if form.image.errors %}
                 <div class="invalid-feedback d-block">
                     {{ form.image.errors|join:", " }}
                 </div>
                 {% endif %}
             </div>
+            <!-- Pole wyboru dostępności -->
             <div class="form-group mb-4">
                 <label for="id_dostep" class="fs-5">Dostęp:</label>
                 {{ form.dostep }}
+                <!-- Wyświetlanie błędów walidacji dla pola dostępności -->
                 {% if form.dostep.errors %}
                 <div class="invalid-feedback d-block">
                     {{ form.dostep.errors|join:", " }}
                 </div>
                 {% endif %}
             </div>
+            <!-- Przycisk wysyłania formularza -->
             <button type="submit" class="btn btn-primary mt-4 w-100 fs-5">Dodaj Post</button>
           </form>
         </div>
@@ -103,11 +115,13 @@
     color: red;
     font-size: 12px;
   }
+
   .form-group:not(:last-child) {
     margin-bottom: 1rem;
   }
 </style>
 
+<!-- Ładowanie CKEditor, edytora tekstu dla pola treści -->
 <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script>
   CKEDITOR.replace('id_description', {

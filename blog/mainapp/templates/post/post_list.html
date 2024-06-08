@@ -83,23 +83,32 @@
 </style>
 
 <div class="container mt-5">
+  <!-- Nagłówek sekcji -->
   <h2 class="post-label">Lista Postów</h2>
   <div class="row justify-content-center">
+    <!-- Pętla przez każdy post i jego wyświetlenie -->
     {% for post in posts %}
     <div class="col-md-4 mb-3">
+      <!-- Karta z postem -->
       <div class="card post-card">
         <div class="card-body">
+          <!-- Wyświetl tytuł posta -->
           <h5 class="card-title post-title">{{ post.tytul }}</h5>
+          <!-- Wyświetl skróconą treść posta -->
           <p class="card-text post-text">{{ post.tresc|truncatewords_html:10 }}</p>
         </div>
         <div class="card-footer">
+          <!-- Wyświetl autora posta -->
           <small class="text-muted post-info">Autor: {{ post.autor }}</small>
           <br>
+          <!-- Wyświetl datę utworzenia posta -->
           <small class="text-muted post-info">Data utworzenia: {{ post.data_utworzenia }}</small>
         </div>
+        <!-- Sprawdź, czy post ma obrazek i wyświetl go, jeśli jest dostępny -->
         {% if post.image %}
         <img src="{{ post.image.url }}" alt="{{ post.tytul }}" class="post-image">
         {% endif %}
+        <!-- Przycisk przekierowujący do szczegółów posta -->
         <a href="{% url 'post_detail' post.id %}" class="btn btn-primary read-more-btn">Przeczytaj więcej</a>
       </div>
     </div>

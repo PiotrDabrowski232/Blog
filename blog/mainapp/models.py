@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# Model dla użytkowników
 class Uzytkownik(models.Model):
     nazwa_uzytkownika = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -17,12 +18,14 @@ class Uzytkownik(models.Model):
     def __str__(self):
         return self.nazwa_uzytkownika
 
+# Model dla postów
 class Post(models.Model):
     tytul = models.CharField(max_length=200)
     tresc = models.TextField(max_length=2000)
     data_utworzenia = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True, upload_to="images/")
+    
     DOSTEP_CHOICES = (
         ('Publiczny', 'Publiczny'),
         ('Ograniczony', 'Ograniczony'),
@@ -32,6 +35,7 @@ class Post(models.Model):
     def __str__(self):
         return self.tytul
 
+# Model dla komentarzy
 class Komentarz(models.Model):
     tresc = models.TextField()
     data_dodania = models.DateTimeField(auto_now_add=True)
@@ -41,6 +45,7 @@ class Komentarz(models.Model):
     def __str__(self):
         return f"Komentarz do {self.post.tytul}"
 
+# Model dla elementów graficznych
 class ElementGraficzny(models.Model):
     url = models.URLField()
     opis = models.TextField()
